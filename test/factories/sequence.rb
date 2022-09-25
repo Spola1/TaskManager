@@ -4,12 +4,12 @@ FactoryBot.define do
   end
 
   sequence :string, aliases: [:first_name, :last_name, :password, :avatar,
-                              :name, :state] do |n|
+                              :type, :name, :state] do |n|
     "string#{n}"
   end
 
   sequence :text, aliases: [:description] do |n|
-    "example#{n}"
+    "description#{n}"
   end
 
   sequence :date, aliases: [:expired_at] do |n|

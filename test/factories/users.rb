@@ -5,13 +5,5 @@ FactoryBot.define do
     password
     email
     avatar
-
-    factory :developer do
-      type { 'Developer' }
-    end
-
-    factory :manager do
-      type { 'Manager' }
-    end
   end
 end

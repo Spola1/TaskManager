@@ -4,7 +4,7 @@ FactoryBot.define do
   end
 
   sequence :string, aliases: [:first_name, :last_name, :password, :avatar,
-                              :type, :name, :state] do |n|
+                              :name, :state] do |n|
     "string#{n}"
   end
 

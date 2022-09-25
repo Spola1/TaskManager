@@ -1,7 +1,5 @@
-= simple_form_for @user, as: :user, url: admin_users_path do |f|
-  h4 Create new user
-  p
-    = render 'form', f: f
-  p
-    = f.button :submit, "Confirm", class: 'mdl-button--colored'
-    = f.button :submit, "Back", formaction: admin_users_url, formmethod: "get"
+h4 Create new user
+
+p
+  = render partial: 'form', locals: { url: admin_users_path }
+p

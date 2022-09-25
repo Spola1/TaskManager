@@ -14,8 +14,11 @@ gem 'simple_form'
 gem 'state_machines'
 gem 'state_machines-activerecord'
 gem 'slim-rails'
-
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'kaminari'
+gem 'ransack'
+gem 'responders'
+gem 'active_model_serializers'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

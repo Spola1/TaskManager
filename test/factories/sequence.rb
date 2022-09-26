@@ -9,10 +9,14 @@ FactoryBot.define do
   end
 
   sequence :text, aliases: [:description] do |n|
-    "example#{n}"
+    "description#{n}"
   end
 
   sequence :date, aliases: [:expired_at] do |n|
     "#{n}-01-01"
+  end
+
+  sequence :task_state do |_n|
+    [:new_task, :in_development, :in_qa, :in_code_review, :ready_for_release, :released, :archived].sample
   end
 end

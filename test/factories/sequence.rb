@@ -16,7 +16,7 @@ FactoryBot.define do
     "#{n}-01-01"
   end
 
-  sequence :task_state do |n|
+  sequence :task_state do |_n|
     [:new_task, :in_development, :in_qa, :in_code_review, :ready_for_release, :released, :archived].sample
   end
 end

@@ -6,7 +6,7 @@ class Api::V1::TasksController < Api::V1::ApplicationController
       page(page).
       per(per_page)
 
-    respond_with(tasks, each_serializer: TaskSerializer, root: 'items', meta: build_meta(tasks))
+    render(json: tasks, each_serializer: TaskSerializer, root: 'items', meta: build_meta(tasks))
   end
 
   def show
@@ -19,14 +19,14 @@ class Api::V1::TasksController < Api::V1::ApplicationController
     task = current_user.my_tasks.new(task_params)
     task.save
 
-    respond_with(task, serializer: TaskSerializer, location: nil)
+    render(json: task, serializer: TaskSerializer, location: nil)
   end
 
   def update
     task = Task.find(params[:id])
     task.update(task_params)
 
-    respond_with(task, serializer: TaskSerializer)
+    render(json: task, serializer: TaskSerializer)
   end
 
   def destroy

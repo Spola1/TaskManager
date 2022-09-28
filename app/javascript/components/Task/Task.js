@@ -8,8 +8,8 @@ import Typography from '@material-ui/core/Typography';
 
 import useStyles from './useStyles';
 
-const Task = ({ task }) => {
-  const styles = … ;
+function Task({ task }) {
+  const styles = useStyles();
 
   return (
     <Card className={styles.root}>
@@ -21,7 +21,7 @@ const Task = ({ task }) => {
       </CardContent>
     </Card>
   );
-};
+}
 
 Task.propTypes = {
   task: PropTypes.shape().isRequired,

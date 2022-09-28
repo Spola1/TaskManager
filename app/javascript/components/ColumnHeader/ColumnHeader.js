@@ -6,7 +6,7 @@ import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
 
 import useStyles from './useStyles';
 
-const ColumnHeader = ({ column, onLoadMore }) => {
+function ColumnHeader({ column, onLoadMore }) {
   const styles = useStyles();
 
   const {
@@ -32,7 +32,7 @@ const ColumnHeader = ({ column, onLoadMore }) => {
       </div>
     </div>
   );
-};
+}
 
 ColumnHeader.propTypes = {
   column: PropTypes.shape().isRequired,

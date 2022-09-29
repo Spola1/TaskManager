@@ -1,7 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 
-import { camelize, decamelize } from './keysConverter.js';
+import { camelize, decamelize } from './keysConverter';
 
 function authenticityToken() {
   const token = document.querySelector('meta[name="csrf-token"]');
@@ -42,7 +42,8 @@ export default {
         params: decamelize(params),
         paramsSerializer: (parameters) => qs.stringify(parameters, { encode: false }),
       })
-      .then(camelize);
+      .then(camelize)
+      .catch((error) => console.log(error));
   },
 
   post(url, json) {

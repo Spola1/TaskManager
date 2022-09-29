@@ -4,26 +4,31 @@ import FetchHelper from 'utils/fetchHelper';
 export default {
   index(params) {
     const path = routes.apiV1TasksPath();
+
     return FetchHelper.get(path, params);
   },
 
   show(id) {
     const path = routes.apiV1TaskPath(id);
+
     return FetchHelper.get(path);
   },
 
   update(id, task = {}) {
-    const path = routes.apiV1TaskPath(id);
-    return FetchHelper.put(path);
+    const path = routes.apiV1TaskPath(id, task);
+
+    return FetchHelper.put(path, { task });
   },
 
   create(task = {}) {
-    const path = routes.apiV1TaskPath(id);
-    return FetchHelper.post(path);
+    const path = routes.apiV1TasksPath(task);
+
+    return FetchHelper.post(path, task);
   },
 
   destroy(id) {
     const path = routes.apiV1TaskPath(id);
-    return FetchHelper.delete(path);
+
+    return FetchHelper.delete(path, id);
   },
 };

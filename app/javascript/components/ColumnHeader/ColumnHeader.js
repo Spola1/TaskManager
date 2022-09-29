@@ -13,7 +13,7 @@ function ColumnHeader({ column, onLoadMore }) {
     id,
     title,
     cards,
-    meta: { totalCount, currentPage },
+    meta: { totalCount, currentPage, totalPages },
   } = column;
 
   const count = cards.length;
@@ -23,12 +23,14 @@ function ColumnHeader({ column, onLoadMore }) {
   return (
     <div className={styles.root}>
       <div className={styles.title}>
-        <b>{title}</b> ({count}/{totalCount || '…'})
+        <b>{title}</b> ({count}/{totalCount || '...'})
       </div>
       <div className={styles.actions}>
-        <IconButton aria-label="Load more" onClick={() => handleLoadMore()}>
-          <SystemUpdateAltIcon fontSize="small" />
-        </IconButton>
+        {currentPage < totalPages && (
+          <IconButton aria-label="Load more" onClick={() => handleLoadMore()}>
+            <SystemUpdateAltIcon fontSize="small" />
+          </IconButton>
+        )}
       </div>
     </div>
   );
@@ -36,6 +38,7 @@ function ColumnHeader({ column, onLoadMore }) {
 
 ColumnHeader.propTypes = {
   column: PropTypes.shape().isRequired,
+  onLoadMore: PropTypes.func.isRequired,
 };
 
 export default ColumnHeader;

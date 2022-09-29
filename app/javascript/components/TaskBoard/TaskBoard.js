@@ -23,12 +23,12 @@ const STATES = [
 ];
 
 const initialBoard = {
-  columns: STATES.map(column => ({
+  columns: STATES.map((column) => ({
     id: column.key,
     title: column.value,
     cards: [],
     meta: {},
-  }))
+  })),
 };
 
 const MODES = {
@@ -37,11 +37,11 @@ const MODES = {
   EDIT: 'edit',
 };
 
-const TaskBoard = () => {
+function TaskBoard() {
   const styles = useStyles;
   const [board, setBoard] = useState(initialBoard);
   const [boardCards, setBoardCards] = useState([]);
-  const [mode, setMode] = useState(MODES.NONE)
+  const [mode, setMode] = useState(MODES.NONE);
   const [openedTaskId, setOpenedTaskId] = useState(null);
 
   const loadColumn = (state, page, perPage) =>
@@ -89,7 +89,6 @@ const TaskBoard = () => {
 
   useEffect(() => loadBoard(), []);
   useEffect(() => generateBoard(), [boardCards]);
-
 
   const handleCardDragEnd = (task, source, destination) => {
     const transition = task.transitions.find(({ to }) => destination.toColumnId === to);

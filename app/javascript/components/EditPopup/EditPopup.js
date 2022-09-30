@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isNil } from 'ramda';
-import Form from './components/Form';
-import useStyles from './useStyles';
+
 import {
   Button,
   Card,
@@ -14,6 +13,10 @@ import {
   Modal,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+
+import Form from './components/Form';
+
+import useStyles from './useStyles';
 
 function EditPopup({ cardId, onClose, onCardDestroy, onLoadCard, onCardUpdate }) {
   const [task, setTask] = useState(null);

@@ -16,7 +16,7 @@ import TaskForm from 'forms/TaskForm';
 
 import useStyles from './useStyles';
 
-function AddPopup({ onClose, onCreateCard }) {
+const AddPopup = ({ onClose, onCreateCard }) => {
   const [task, changeTask] = useState(TaskForm.defaultAttributes());
   const [isSaving, setSaving] = useState(false);
   const [errors, setErrors] = useState({});
@@ -29,7 +29,6 @@ function AddPopup({ onClose, onCreateCard }) {
       setErrors(error || {});
 
       if (error instanceof Error) {
-        // eslint-disable-next-line no-alert
         alert(`Creation Failed! Error: ${error.message}`);
       }
     });

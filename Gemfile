@@ -20,7 +20,7 @@ gem 'ransack'
 gem 'responders'
 gem 'active_model_serializers'
 gem 'js-routes'
-gem 'react-rails', '~> 1.0'
+gem 'webpacker-react', '~> 0.3.2'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

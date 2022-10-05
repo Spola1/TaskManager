@@ -9,7 +9,7 @@ export default {
   },
 
   show(id) {
-    const path = routes.apiV1TaskUserPath(id);
+    const path = routes.apiV1UserPath(id);
 
     return FetchHelper.get(path);
   },

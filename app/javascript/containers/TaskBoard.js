@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import KanbanBoard from '@lourenci/react-kanban';
+import KanbanBoard from '@asseinfo/react-kanban';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -8,6 +8,8 @@ import AddPopup from 'components/AddPopup';
 import EditPopup from 'components/EditPopup';
 import ColumnHeader from 'components/ColumnHeader';
 
+import TaskPresenter from 'presenters/TaskPresenter';
+
 import useTasks from 'hooks/store/useTasks';
 
 import useStyles from './useStyles';
@@ -15,10 +17,11 @@ import useStyles from './useStyles';
 const MODES = {
   ADD: 'add',
   NONE: 'none',
+  EDIT: 'edit',
 };
 
-const TaskBoard = () => {
-  const { board, loadBoard } = useTasks();
+function TaskBoard() {
+  const { board, loadBoard, loadMore, createTask, updateTask, destroyTask, loadTask, dragCard } = useTasks();
   const [mode, setMode] = useState(MODES.NONE);
   const [openedTaskId, setOpenedTaskId] = useState(null);
   const styles = useStyles();
@@ -32,7 +35,7 @@ const TaskBoard = () => {
   };
 
   const handleOpenEditPopup = (task) => {
-    setOpenedTaskId(task.id);
+    setOpenedTaskId(TaskPresenter.id(task));
     setMode(MODES.EDIT);
   };
 
@@ -41,12 +44,30 @@ const TaskBoard = () => {
     setOpenedTaskId(null);
   };
 
-  const loadColumnMore = () => {};
-  const handleCardDragEnd = () => {};
-  const handleTaskCreate = () => {};
-  const handleTaskLoad = () => {};
-  const handleTaskUpdate = () => {};
-  const handleTaskDestroy = () => {};
+  const loadColumnMore = (state, page = 1, perPage = 10) => loadMore(state, page, perPage);
+
+  const handleCardDragEnd = (task, source, destination) => {
+    dragCard(task, source, destination).catch((error) => {
+      alert(`Move failed! ${error.message}`);
+    });
+  };
+
+  const handleTaskCreate = (task) => {
+    handleClose();
+    return createTask(task);
+  };
+
+  const handleTaskUpdate = (task) => {
+    handleClose();
+    return updateTask(TaskPresenter.id(task), task);
+  };
+
+  const handleTaskDestroy = (task) => {
+    handleClose();
+    return destroyTask(task);
+  };
+
+  const handleTaskLoad = (taskId) => loadTask(taskId);
 
   return (
     <>
@@ -75,6 +96,6 @@ const TaskBoard = () => {
       )}
     </>
   );
-};
+}
 
 export default TaskBoard;

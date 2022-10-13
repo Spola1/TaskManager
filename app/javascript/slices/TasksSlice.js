@@ -53,23 +53,75 @@ export default tasksSlice.reducer;
 export const useTasksActions = () => {
   const dispatch = useDispatch();
 
-  const loadColumn = (state, reducer = loadColumnSuccess, page = 1, perPage = 10) => {
+  const loadColumn = (state, page = 1, perPage = 10) => {
     TasksRepository.index({
       q: { stateEq: state },
       page,
       perPage,
     }).then(({ data }) => {
-      dispatch(reducer({ ...data, columnId: state }));
+      dispatch(loadColumnSuccess({ ...data, columnId: state }));
     });
   };
 
   const loadBoard = () => STATES.map(({ key }) => loadColumn(key));
 
-  const loadMore = (state, page, perPage) => loadColumn(state, loadColumnMoreSuccess, page, perPage);
+  const loadColumnMore = (state, page = 1, perPage = 10) => {
+    TasksRepository.index({
+      q: { stateEq: state },
+      page,
+      perPage,
+    }).then(({ data }) => {
+      dispatch(loadColumnMoreSuccess({ ...data, columnId: state }));
+    });
+  };
+
+  const createTask = (params) => {
+    const attributes = TaskForm.attributesToSubmit(params);
+
+    return TasksRepository.create(attributes).then(({ data: { task } }) => {
+      loadColumn(TaskPresenter.state(task));
+    });
+  };
+
+  const updateTask = (id) => {
+    const attributes = TaskForm.attributesToSubmit(id);
+
+    return TasksRepository.update(id, attributes).then(({ data: { task } }) => {
+      loadColumn(TaskPresenter.state(task));
+    });
+  };
+
+  const destroyTask = (task) =>
+    TasksRepository.destroy(TaskPresenter.id(task)).then(() => {
+      loadColumn(TaskPresenter.state(task));
+    });
+
+  const loadTask = (id) => TasksRepository.show(id).then(({ data: { task } }) => task);
+
+  const dragEndCard = (task, source, destination) => {
+    const transition = TaskPresenter.transitions(task).find(({ to }) => destination.toColumnId === to);
+
+    if (!transition) {
+      return null;
+    }
+
+    return TasksRepository.update(task.id, { stateEvent: transition.event })
+      .then(() => {
+        loadColumn(destination.toColumnId);
+        loadColumn(source.fromColumnId);
+      })
+      .catch((error) => {
+        alert(`Move failed! ${error.message}`);
+      });
+  };
 
   return {
     loadBoard,
-    loadMore,
-    loadColumn,
+    loadColumnMore,
+    dragEndCard,
+    createTask,
+    updateTask,
+    loadTask,
+    destroyTask,
   };
 };

@@ -21,7 +21,7 @@ const MODES = {
 };
 
 function TaskBoard() {
-  const { board, loadBoard, loadMore, createTask, updateTask, destroyTask, loadTask, dragCard } = useTasks();
+  const { board, loadBoard, loadColumnMore, dragEndCard, createTask, updateTask, loadTask, destroyTask } = useTasks();
   const [mode, setMode] = useState(MODES.NONE);
   const [openedTaskId, setOpenedTaskId] = useState(null);
   const styles = useStyles();
@@ -44,30 +44,32 @@ function TaskBoard() {
     setOpenedTaskId(null);
   };
 
-  const loadColumnMore = (state, page = 1, perPage = 10) => loadMore(state, page, perPage);
+  const handleLoadColumnMore = (state, page = 1, perPage = 10) => {
+    loadColumnMore(state, page, perPage);
+  };
 
   const handleCardDragEnd = (task, source, destination) => {
-    dragCard(task, source, destination).catch((error) => {
+    dragEndCard(task, source, destination).catch((error) => {
       alert(`Move failed! ${error.message}`);
     });
   };
 
-  const handleTaskCreate = (task) => {
-    handleClose();
-    return createTask(task);
-  };
+  const handleTaskCreate = (params) =>
+    createTask(params).then(() => {
+      handleClose();
+    });
 
-  const handleTaskUpdate = (task) => {
-    handleClose();
-    return updateTask(TaskPresenter.id(task), task);
-  };
+  const handleTaskUpdate = (id) =>
+    updateTask(id).then(() => {
+      handleClose();
+    });
 
-  const handleTaskDestroy = (task) => {
-    handleClose();
-    return destroyTask(task);
-  };
+  const handleTaskDestroy = (task) =>
+    destroyTask(task).then(() => {
+      handleClose();
+    });
 
-  const handleTaskLoad = (taskId) => loadTask(taskId);
+  const handleTaskLoad = (id) => loadTask(id);
 
   return (
     <>

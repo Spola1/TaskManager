@@ -5,6 +5,6 @@ FactoryBot.define do
     author factory: :manager
     assignee factory: :developer
     state { :new_task.to_s }
-    expired_at { (Time.now + 1.hour).to_date }
+    expired_at
   end
 end

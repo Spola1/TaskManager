@@ -6,6 +6,9 @@ import { changeColumn } from '@asseinfo/react-kanban';
 import TasksRepository from 'repositories/TasksRepository';
 import { STATES } from 'presenters/TaskPresenter';
 
+import TaskPresenter from 'presenters/TaskPresenter';
+import TaskForm from 'forms/TaskForm';
+
 const initialState = {
   board: {
     columns: STATES.map((column) => ({

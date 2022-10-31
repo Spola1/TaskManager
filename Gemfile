@@ -38,6 +38,9 @@ group :test do
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver'
   gem 'webdrivers'
+  gem 'simplecov', require: false, group: :test
+  gem 'simplecov-lcov', require: false
+  gem 'coveralls_reborn', '~> 0.25.0', require: false
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

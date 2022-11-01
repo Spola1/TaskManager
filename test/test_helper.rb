@@ -1,15 +1,8 @@
-if ENV["COVERAGE"]
-  require 'simplecov'
-  require 'coveralls'
+require 'simplecov'
+SimpleCov.start
 
-  if ENV["CI"] || ENV["COVERAGE_LCOV"]
-    SimpleCov.formatters = [
-      SimpleCov::Formatter::HTMLFormatter,
-      Coveralls::SimpleCov::Formatter
-    ]
-  end
-  SimpleCov.start
-end
+require 'coveralls'
+Coveralls.wear!('rails')
 
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'

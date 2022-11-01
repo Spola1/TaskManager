@@ -1,2 +1,2 @@
-имя службы: travis-pro
- repo_token: vdmkSmcTe2IjpADlNPXQDfW6dZOSackTs
+service_name: travis-pro
+repo_token: vdmkSmcTe2IjpADlNPXQDfW6dZOSackTs

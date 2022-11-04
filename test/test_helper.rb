@@ -1,6 +1,16 @@
 ENV['RAILS_ENV'] ||= 'test'
+
 require_relative '../config/environment'
 require 'rails/test_help'
+
+if ENV['CI']
+  require 'simplecov'
+  require 'coveralls'
+
+  SimpleCov.start('rails')
+
+  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+end
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods

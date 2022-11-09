@@ -1,6 +1,6 @@
-# fly.toml file generated for dry-wind-6045 on 2022-11-08T12:13:35+03:00
+# fly.toml file generated for shy-shadow-3446 on 2022-11-09T12:21:23+03:00
 
-app = "dry-wind-6045"
+app = "shy-shadow-3446"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []

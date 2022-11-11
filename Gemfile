@@ -21,6 +21,7 @@ gem 'responders'
 gem 'active_model_serializers'
 gem 'js-routes'
 gem 'webpacker-react', '~> 0.3.2'
+gem 'rollbar'
 gem 'newrelic_rpm'
 
 group :development, :test do

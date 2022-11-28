@@ -4,16 +4,10 @@ class Web::PasswordsController < Web::ApplicationController
   end
 
   def edit
-    @token = params[:token]
+    @new_password_form = NewPasswordForm.new(reset_token: params[:token])
 
-    user = @token.present? && User.find_by(reset_token: @token)
-
-    if user.blank?
-      redirect_to(new_password_path, alert: 'Your reset link is invalid.')
-    elsif user.password_reset_token_expired?
-      redirect_to(new_password_path, alert: 'Your reset link has expired.')
+    if @new_password_form.invalid? && @new_password_form.errors.where(:reset_token).present?
+      redirect_to(new_password_path, alert: @new_password_form.errors.where(:reset_token).first.message)
     end
-
-    @new_password_form = NewPasswordForm.new
   end
 end

@@ -39,13 +39,15 @@ en:
         password_reset: "Your password was reset successfully! Please sign in."
 
   forms:
-    new_password_form:
+    password_reset_create_form:
       errors:
-        link_invalid: "Reset link has invalid"
-        linl_expired: "Reset link has expired"
-    password_reset_form:
-      errors:
-        email_not_exist: "User with this email does not exist"
+        email_not_found: "Email not found"
     session_form:
       errors:
-        email_or_password_invalid: "email or password invalid"
+        email_or_password_invalid: "Email or password invalid"
+
+  helpers:
+    application_helper:
+      alerts:
+        user_not_found: "User not found"
+        token_has_expired: "Password reset token has expired"

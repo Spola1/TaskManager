@@ -1,37 +1,49 @@
 class Web::PasswordResetsController < Web::ApplicationController
+  include PasswordResetsHelper
+  before_action :set_user, :check_expiration, only: [:edit, :update]
+
+  def new
+    @password_reset = PasswordResetCreateForm.new
+  end
+
   def create
-    @password_reset_form = PasswordResetForm.new(password_reset_params)
-    return render :new if @password_reset_form.invalid?
-    user = @password_reset_form.user
+    @password_reset = PasswordResetCreateForm.new(password_reset_params)
 
-    PasswordResetService.create_password_reset_token!(user)
+    return render :new if @password_reset.invalid?
 
-    UserMailer.with(user: user).password_reset.deliver_now
-
+    user = @password_reset.user
+    password_reset_token_update(user)
+    UserMailer.with({ user: user }).password_reset.deliver_now
     redirect_to(root_path, alert: I18n.t('controllers.web.password_resets_controller.email_with_instructions'))
   end
 
+  def edit
+    @edit_form = PasswordResetUpdateForm.new
+  end
+
   def update
-    @new_password_form = NewPasswordForm.new(password_params)
-    if @new_password_form.invalid?
-      errors = @new_password_form.errors
-      return render :edit if errors.where(:password).present?
-      return redirect_to(new_password_path, alert: errors.where(:reset_token).first.message)
+    @edit_form = PasswordResetUpdateForm.new(password_reset_edit_params)
+
+    if @edit_form.invalid?
+      return render :edit
     end
 
-    user = @new_password_form.user
-    user.update(password_params.slice(:password, :password_confirmation))
-    PasswordResetService.delete_password_reset_token!(user)
+    @user.update(password_reset_update_params)
     redirect_to(new_session_path, alert: I18n.t('controllers.web.password_resets_controller.password_reset'))
   end
 
   private
 
   def password_reset_params
-    params.require(:password_reset_form).permit(:email)
+    params.require(:password_reset_create_form).permit(:email)
   end
 
-  def password_params
-    params.require(:new_password_form).permit(:password, :password_confirmation, :reset_token)
+  def password_reset_edit_params
+    params.require(:password_reset_update_form).permit(:password, :password_confirmation)
+  end
+
+  def password_reset_update_params
+    reset_token_params = { reset_token: '', reset_token_expires_at: '' }
+    password_reset_edit_params.merge(reset_token_params)
   end
 end

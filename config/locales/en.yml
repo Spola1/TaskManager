@@ -31,3 +31,21 @@
 
 en:
   hello: "Hello world"
+
+  controllers:
+    web:
+      password_resets_controller:
+        email_with_instructions: "An email has been sent to you with instructions"
+        password_reset: "Your password was reset successfully! Please sign in."
+
+  forms:
+    new_password_form:
+      errors:
+        link_invalid: "Reset link has invalid"
+        linl_expired: "Reset link has expired"
+    password_reset_form:
+      errors:
+        email_not_exist: "User with this email does not exist"
+    session_form:
+      errors:
+        email_or_password_invalid: "email or password invalid"

@@ -14,6 +14,6 @@ class SessionForm
   private
 
   def user_valid?
-    return errors.add(:email, 'email or password doesn\'t match') if user.blank? || !user.authenticate(password)
+    return errors.add(:email, I18n.t('forms.session_form.errors.email_or_password_invalid')) if user.blank? || !user.authenticate(password)
   end
 end

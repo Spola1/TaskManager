@@ -14,7 +14,7 @@ module PasswordResetService
     user.reset_token_expires_at = nil
     user.save
   end
-  
+
   def self.password_reset_token_expired?(user)
     Time.zone.now.after?(user.reset_token_expires_at)
   end

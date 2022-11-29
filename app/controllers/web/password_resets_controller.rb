@@ -9,7 +9,7 @@ class Web::PasswordResetsController < Web::ApplicationController
   def create
     @password_reset = PasswordResetCreateForm.new(password_reset_params)
 
-    return render :new if @password_reset.invalid?
+    return render(:new) if @password_reset.invalid?
 
     user = @password_reset.user
     password_reset_token_update(user)
@@ -25,7 +25,7 @@ class Web::PasswordResetsController < Web::ApplicationController
     @edit_form = PasswordResetUpdateForm.new(password_reset_edit_params)
 
     if @edit_form.invalid?
-      return render :edit
+      return render(:edit)
     end
 
     @user.update(password_reset_update_params)

@@ -3,7 +3,7 @@ class PasswordResetUpdateForm
 
   attr_accessor(
     :password,
-    :password_confirmation
+    :password_confirmation,
   )
 
   validates :password, presence: true, confirmation: true

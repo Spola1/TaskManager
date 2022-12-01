@@ -8,16 +8,14 @@ module PasswordResetsHelper
 
   def set_user
     @user = User.find_by(reset_token: params[:id])
-    unless @user
-      flash[:alert] = I18n.t('helpers.application_helper.alerts.user_not_found')
-      redirect_to(root_url)
-    end
+    return if @user.present?
+    flash[:alert] = I18n.t('helpers.application_helper.alerts.user_not_found')
+    redirect_to(root_url)
   end
 
   def check_expiration
-    if @user.reset_token_expires_at < Time.now
-      flash[:alert] = I18n.t('helpers.application_helper.alerts.token_has_expired')
-      redirect_to(new_password_reset_url)
-    end
+    return if @user.reset_token_expires_at > Time.now
+    flash[:alert] = I18n.t('helpers.application_helper.alerts.token_has_expired')
+    redirect_to(new_password_reset_url)
   end
 end

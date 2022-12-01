@@ -24,9 +24,7 @@ class Web::PasswordResetsController < Web::ApplicationController
   def update
     @edit_form = PasswordResetUpdateForm.new(password_reset_edit_params)
 
-    if @edit_form.invalid?
-      return render(:edit)
-    end
+    return render(:edit) if @edit_form.invalid?
 
     @user.update(password_reset_update_params)
     redirect_to(new_session_path, alert: I18n.t('controllers.web.password_resets_controller.password_reset'))

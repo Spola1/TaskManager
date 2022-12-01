@@ -13,6 +13,6 @@ class PasswordResetCreateForm
   private
 
   def user_valid?
-    errors.add(:email, I18n.t('forms.password_reset_create_form.errors.email_not_found')) if user.blank?
+    errors.add(:email, :email_not_found) if user.blank?
   end
 end

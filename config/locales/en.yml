@@ -30,7 +30,13 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activemodel:
+    errors:
+      models:
+        password_reset_create_form:
+          attributes:
+            email:
+              email_not_found: "email not found"
 
   controllers:
     web:

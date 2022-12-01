@@ -1,10 +1,7 @@
 class SessionForm
   include ActiveModel::Model
 
-  attr_accessor(
-    :email,
-    :password,
-  )
+  attr_accessor :email, :password
 
   validates :email, presence: true, format: { with: /\A\S+@.+\.\S+\z/ }
   validates :password, presence: true
@@ -17,8 +14,6 @@ class SessionForm
   private
 
   def user_valid?
-    if user.blank? || !user.authenticate(password)
-      errors.add(:email, "email or password doesn't match")
-    end
+    return errors.add(:email, I18n.t('forms.session_form.errors.email_or_password_invalid')) if user.blank? || !user.authenticate(password)
   end
 end

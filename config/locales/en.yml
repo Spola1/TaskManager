@@ -30,4 +30,30 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activemodel:
+    errors:
+      models:
+        password_reset_create_form:
+          attributes:
+            email:
+              email_not_found: "email not found"
+
+  controllers:
+    web:
+      password_resets_controller:
+        email_with_instructions: "An email has been sent to you with instructions"
+        password_reset: "Your password was reset successfully! Please sign in."
+
+  forms:
+    password_reset_create_form:
+      errors:
+        email_not_found: "Email not found"
+    session_form:
+      errors:
+        email_or_password_invalid: "Email or password invalid"
+
+  helpers:
+    application_helper:
+      alerts:
+        user_not_found: "User not found"
+        token_has_expired: "Password reset token has expired"
